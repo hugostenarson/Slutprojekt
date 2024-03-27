@@ -6,13 +6,14 @@ using System.Xml.Linq;
 using Microsoft.VisualBasic;
 using Raylib_cs;
 
-//Nästa gång: Implementera poäng-system +1 poäng per banan
+
 
 Raylib.InitWindow(800, 600, "Catch the Fruits!");
 Raylib.SetTargetFPS(60);
 
 Random generator = new Random();
 int xPos = generator.Next(20, 780);
+int score = 0;
 
 Texture2D fruitBasket = Raylib.LoadTexture("fruitbasket.png");
 Texture2D banana = Raylib.LoadTexture("banana.png");
@@ -39,7 +40,9 @@ if (Raylib.CheckCollisionRecs(basketRect, bananaRect))
 {
     bananaRect.y = -20;
     bananaRect.x = generator.Next(20, 780);
-    Raylib.DrawText("+1", 750, 20, 30, Raylib_cs.Color.RED);
+    score += 1;
+    
+    
 }
 
 
@@ -89,6 +92,6 @@ Raylib.BeginDrawing();
     Raylib.DrawRectangleRec(barrierBot, Raylib_cs.Color.BLACK);
     Raylib.DrawTexture(banana, (int)bananaRect.x, (int)bananaRect.y, Raylib_cs.Color.WHITE);
     Raylib.DrawTexture(fruitBasket, (int)basketRect.x, (int)basketRect.y, Raylib_cs.Color.WHITE);
-    Raylib.DrawText("SCORE:");
+    Raylib.DrawText("SCORE: " + score, 20, 40, 30, Raylib_cs.Color.GREEN);
 Raylib.EndDrawing();
 }
